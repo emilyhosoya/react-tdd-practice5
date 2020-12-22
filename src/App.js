@@ -7,7 +7,7 @@ class App extends Component {
     this.state = {
       isAddRecipeFormDisplayed: false,
       recipes: [],
-      newRecipeName: "",
+      newRecipeName: ""
     }
   }
 
@@ -30,14 +30,15 @@ class App extends Component {
   submitRecipe = (e) => {
     e.preventDefault();
 
-    this.setState({
-      recipes: [
-        {
-          name: this.state.newRecipeName,
-          instructions: this.state.newRecipeInstructions,
-        }
-      ]
-    })
+    if (this.state.newRecipeName !== "") {
+      this.state.recipes.push({
+        name: this.state.newRecipeName,
+        instructions: this.state.newRecipeInstructions,
+      })
+
+    this.setState({newRecipeName: ""})
+    this.toggleAddRecipeForm()
+    }
   }
 
   render() {
@@ -65,7 +66,10 @@ class App extends Component {
           this.state.recipes !== undefined &&
             this.state.recipes.length > 0
             ? <ul>
-              <li>{this.state.recipes[0].name}</li>
+              { this.state.recipes.map(recipe => {
+                  return <li key={recipe.name}>{recipe.name}</li>
+                })
+              }
             </ul>
             : <p>There are no recipes to list.</p>
         }

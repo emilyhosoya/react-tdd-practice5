@@ -11,6 +11,8 @@ As a Chef, I want to be able to see a recipe that I have added show up under "My
 
 Given I have clicked the add recipe button, When I enter the details of a recipe in the form And I click the submit button Then I should see that recipe's name in the list under a heading that reads "My Recipes".
 
+As a chef, I want to be able to see multiple recipes' names appear as a list after adding them in the form.
+
 */
 
 describe("Home page", () => {
@@ -44,12 +46,38 @@ describe("Home page", () => {
     const recipeName = 'PB&J';
 
     addRecipeButton.click().then(() => {
-      cy.get('input[name="newRecipeName"]').type(recipeName, { delay: 200 });
-      cy.get('textarea[name="newRecipeInstructions"]').type(instructions, { delay: 200 });
+      cy.get('input[name="newRecipeName"]').type(recipeName);
+      cy.get('textarea[name="newRecipeInstructions"]').type(instructions);
     })
     cy.get('input[type=submit]').click();
     cy.get('ul').then(() => {
       cy.get('ul').contains(recipeName);
+    })
+  })
+
+  // As a chef, I want to be able to see multiple recipes' names appear as a list after adding them in the form.
+  it("shows multiple recipes' names when there are multiple recipes", () => {
+    const addRecipeButton = cy.get('#add-recipe');
+    const instructions1 = '1. Two slices of bread. 2. Spread peanut butter and jelly on one side. 3. Fold over on itself + throw other piece of bread away. 4. Eat.';
+    const recipeName1 = 'PB&J';
+    const instructions2 = '1. Open box of pasta. 2. Pour into boiling water. 3. Wait. 4. Done.';
+    const recipeName2 = 'Spaghetti';
+
+    addRecipeButton.click().then(() => {
+      cy.get('input[name="newRecipeName"]').type(recipeName1);
+      cy.get('textarea[name="newRecipeInstructions"]').type(instructions1);
+      cy.get('input[type=submit]').click();
+    })
+    
+    cy.get('#add-recipe').click().then(() => {
+      cy.get('input[name="newRecipeName"]').type(recipeName2);
+      cy.get('textarea[name="newRecipeInstructions"]').type(instructions2);
+      cy.get('input[type=submit]').click();
+    })
+    
+    cy.get('ul').then(() => {
+      cy.get('ul').contains(recipeName1);
+      cy.get('ul').contains(recipeName2);
     })
   })
 })

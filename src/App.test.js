@@ -2,96 +2,96 @@ import App from './App';
 import React from 'react';
 import { shallow } from 'enzyme';
 
-// test('toggleAddRecipeForm() modifies isAddRecipeFormDisplayed state value to toggle visibility of a form on the page ', () => {
-//   const wrapper = shallow(<App />);
-//   wrapper.instance().toggleAddRecipeForm();
+test('toggleAddRecipeForm() modifies isAddRecipeFormDisplayed state value to toggle visibility of a form on the page ', () => {
+  const wrapper = shallow(<App />);
+  wrapper.instance().toggleAddRecipeForm();
 
-//   wrapper.update();
-//   expect(wrapper.state().isAddRecipeFormDisplayed).toBeTruthy();
-//   expect(wrapper.exists("#recipe-form")).toEqual(true);
+  wrapper.update();
+  expect(wrapper.state().isAddRecipeFormDisplayed).toBeTruthy();
+  expect(wrapper.exists("#recipe-form")).toEqual(true);
 
-//   wrapper.instance().toggleAddRecipeForm();
-//   expect(wrapper.exists("#recipe-form")).toEqual(false);
-//   expect(wrapper.state().isAddRecipeFormDisplayed).toBeFalsy();
-// });
+  wrapper.instance().toggleAddRecipeForm();
+  expect(wrapper.exists("#recipe-form")).toEqual(false);
+  expect(wrapper.state().isAddRecipeFormDisplayed).toBeFalsy();
+});
 
-// test('the Add Recipe button onClick calls the toggleAddRecipeForm method', () => {
-//   const wrapper = shallow(<App />)
+test('the Add Recipe button onClick calls the toggleAddRecipeForm method', () => {
+  const wrapper = shallow(<App />)
 
-//   // jest.fn() is a placeholder function
-//   wrapper.instance().toggleAddRecipeForm = jest.fn();
-//   wrapper.instance().forceUpdate();
+  // jest.fn() is a placeholder function
+  wrapper.instance().toggleAddRecipeForm = jest.fn();
+  wrapper.instance().forceUpdate();
 
-//   const button = wrapper.find('#add-recipe');
-//   button.simulate('click');
+  const button = wrapper.find('#add-recipe');
+  button.simulate('click');
 
-//   expect(wrapper.instance().toggleAddRecipeForm).toHaveBeenCalled();
-// })
+  expect(wrapper.instance().toggleAddRecipeForm).toHaveBeenCalled();
+})
 
-// test('submitting the form calls the submitRecipe method', () => {
-//   const wrapper = shallow(<App />);
-//   wrapper.setState({ isAddRecipeFormDisplayed: true });
-//   wrapper.instance().submitRecipe = jest.fn();
-//   wrapper.instance().forceUpdate();
+test('submitting the form calls the submitRecipe method', () => {
+  const wrapper = shallow(<App />);
+  wrapper.setState({ isAddRecipeFormDisplayed: true });
+  wrapper.instance().submitRecipe = jest.fn();
+  wrapper.instance().forceUpdate();
 
-//   wrapper.find('#recipe-form').simulate("submit");
-//   expect(wrapper.instance().submitRecipe).toHaveBeenCalled();
-// })
+  wrapper.find('#recipe-form').simulate("submit");
+  expect(wrapper.instance().submitRecipe).toHaveBeenCalled();
+})
 
-// test('submitRecipe() modifies the recipes array in state', () => {
-//   const wrapper = shallow(<App />);
-//   const recipeName = "Wings";
-//   const recipeInstructions = "1a. Lemon pepper on that. 1b. Buffalo";
+test('submitRecipe() modifies the recipes array in state', () => {
+  const wrapper = shallow(<App />);
+  const recipeName = "Wings";
+  const recipeInstructions = "1a. Lemon pepper on that. 1b. Buffalo";
 
-//   wrapper.setState({
-//     isAddRecipeFormDisplayed: true,
-//     newRecipeName: recipeName,
-//     newRecipeInstructions: recipeInstructions,
-//   });
+  wrapper.setState({
+    isAddRecipeFormDisplayed: true,
+    newRecipeName: recipeName,
+    newRecipeInstructions: recipeInstructions,
+  });
 
-//   const submittedRecipe = { name: recipeName, instructions: recipeInstructions }
+  const submittedRecipe = { name: recipeName, instructions: recipeInstructions }
 
-//   const mockPreventDefault = jest.fn();
+  const mockPreventDefault = jest.fn();
 
-//   wrapper.find('#recipe-form').simulate('submit', {
-//     preventDefault: mockPreventDefault,
-//   })
+  wrapper.find('#recipe-form').simulate('submit', {
+    preventDefault: mockPreventDefault,
+  })
 
-//   expect(mockPreventDefault).toHaveBeenCalled();
-//   expect(wrapper.state().recipes).toEqual([submittedRecipe])
-// })
+  expect(mockPreventDefault).toHaveBeenCalled();
+  expect(wrapper.state().recipes).toEqual([submittedRecipe])
+})
 
-// test('typing into the recipe name input updates state', () => {
-//   const wrapper = shallow(<App />);
-//   const recipeName = 'White Bread';
+test('typing into the recipe name input updates state', () => {
+  const wrapper = shallow(<App />);
+  const recipeName = 'White Bread';
 
-//   wrapper.setState({
-//     isAddRecipeFormDisplayed: true,
-//   })
+  wrapper.setState({
+    isAddRecipeFormDisplayed: true,
+  })
 
-//   /* Events: event-bubbling. */
-//   wrapper.find('input[name="newRecipeName"]').simulate("change", {
-//     target: { name: 'newRecipeName', value: recipeName }
-//   });
+  /* Events: event-bubbling. */
+  wrapper.find('input[name="newRecipeName"]').simulate("change", {
+    target: { name: 'newRecipeName', value: recipeName }
+  });
 
-//   expect(wrapper.state().newRecipeName).toEqual(recipeName);
-// })
+  expect(wrapper.state().newRecipeName).toEqual(recipeName);
+})
 
-// test('typing into the recipe instructions input updates state', () => {
-//   const wrapper = shallow(<App />);
-//   const recipeInstructions = 'Flour, water, sugar, salt, yeast';
+test('typing into the recipe instructions input updates state', () => {
+  const wrapper = shallow(<App />);
+  const recipeInstructions = 'Flour, water, sugar, salt, yeast';
 
 
-//   wrapper.setState({
-//     isAddRecipeFormDisplayed: true,
-//   })
+  wrapper.setState({
+    isAddRecipeFormDisplayed: true,
+  })
 
-//   wrapper.find('textarea[name="newRecipeInstructions"]').simulate("change", {
-//     target: { name: 'newRecipeInstructions', value: recipeInstructions }
-//   });
+  wrapper.find('textarea[name="newRecipeInstructions"]').simulate("change", {
+    target: { name: 'newRecipeInstructions', value: recipeInstructions }
+  });
 
-//   expect(wrapper.state().newRecipeInstructions).toEqual(recipeInstructions);
-// })
+  expect(wrapper.state().newRecipeInstructions).toEqual(recipeInstructions);
+})
 
 test('recipe name from recipe in state appears in unordered list', () => {
   const wrapper = shallow(<App />);
@@ -107,4 +107,24 @@ test('recipe name from recipe in state appears in unordered list', () => {
 
   expect(wrapper.find('li')).toHaveLength(1);
   expect(wrapper.find('li').text()).toEqual(recipeName);
+})
+
+test('shows multiple recipes names when there are multiple recipes', () => {
+  const wrapper = shallow(<App />);
+
+  const recipeName1 = 'Korean Beef Tacos';
+  const recipeInstructions1 = 'Kimchi + beef + taco shells';
+  const recipeName2 = 'Spaghetti';
+  const recipeInstructions2 = 'Boil pasta; pour sauce over noodles';
+
+  const submittedRecipe1 = { name: recipeName1, instructions: recipeInstructions1 }
+  const submittedRecipe2 = { name: recipeName2, instructions: recipeInstructions2 }
+
+  wrapper.setState({
+    recipes: [submittedRecipe1, submittedRecipe2],
+  })
+
+  expect(wrapper.find('li')).toHaveLength(2);
+  expect(wrapper.find('li').at(0).text()).toEqual(recipeName1);
+  expect(wrapper.find('li').at(1).text()).toEqual(recipeName2);
 })
